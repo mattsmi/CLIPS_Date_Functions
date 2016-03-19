@@ -9,7 +9,7 @@ Date and Calendar Functions
 
 - `isThisALeapYear`: checks for a Gregorian Leap Year. Returns TRUE, FALSE, or nil.
 - `isThisAGLeapYear`: calls the function "isThisALeapYear".
-- `isThisAnOLeapYear`: checks whether a year is a leap year on the Revised - Julian (or Orthodox or Milanković) calendar.
+- `isThisAnOLeapYear`: checks whether a year is a leap year on the Revised Julian (or Orthodox or Milanković) calendar.
 - `isThisAJLeapYear`: checks whether a year is a leap year on the Julian calendar.
 - `yearFromDateINT`: returns a year from a given UNIX date (i.e. the number of seconds since the UNIX Epoch date).
 - `monthFromDateINT`: returns the month from a given UNIX date.
