@@ -35,8 +35,8 @@ Date and Calendar Functions
 - `pCJDNToMilankovic`: converts a CJDN to a date in the Revised Julian calendar.
 - `pJulianToCJDN`: converts a date in the Julian calendar to its CJDN.
 - `pCJDNToJulian`: converts a CJDN to a date in the Julian calendar.
-- `mkODate`: converts a date in the Revised Julian calendar to a date string. Expects a year, a month, and a day of the month to be passed as arguments -- all integers.
-- `mkJDate`: converts a date in the Julian calendar to a date string. Expects a year, a month, and a day of the month to be passed as arguments -- all integers.
+- `mkODate`: converts a date in the Revised Julian calendar to a date string. Expects a year, a month, and a day of the month to be passed as arguments &mdash; all integers.
+- `mkJDate`: converts a date in the Julian calendar to a date string. Expects a year, a month, and a day of the month to be passed as arguments &mdash; all integers.
 - `mkDateForCurrentCal`: determines the type of calendar in use and calls the appropriate mkDate function.
 - `NumDaysOfWeekBetwee`n: calculates the number of a given day of the week (e.g. a Monday) between two dates.
 
