@@ -46,3 +46,13 @@ they depend on the following three global variable.
 - `(defglobal ?*iEDM_JULIAN* = 1)`
 - `(defglobal ?*iEDM_ORTHODOX* = 2)`
 - `(defglobal ?*iEDM_WESTERN* = 3)`
+
+
+To test these functions, execute the following commands within a CLIPS shell.
+- `(batch* "global_stuff.clp") ; load globals`
+- `(batch* "VariousDateFuncs.clp") ; load calendar functions`
+- `(pGregorianToCJDN 2022 8 28) ; convert 28 April 2022 to CJDN`
+- `(pCJDNToGregorian 2459820); convert the same CJDN to date` 
+- `(DoW 2459820) ; Find the day of the week for 28 April 2022, Gregorian`
+
+

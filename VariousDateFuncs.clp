@@ -588,59 +588,21 @@
     )
 )
 (deffunction DoW
-    (?dDate $?extraArgs)
+    (?dDate)
 
+    ;; Modified 2022-08-28 to calculate the Day of the Week more simply
+    ;;    from the given CJDN.
+
+    ; Confirm that we have received an integer (i.e. the CJDN).
     (if (not (integerp ?dDate)) then
         (return nil)
     )
-    ;Find the calendar used or Easter Dating Method requested, or just use the value of the
-    ;   system global ?*EDM*.
-    (if (= (length ?extraArgs) 0) then
-        (bind ?iTempEDM ?*EDM*)
-    else
-        (bind ?iTempEDM (nth$ 1 ?extraArgs))
-    )
-    (if (and (!= ?iTempEDM ?*iEDM_JULIAN*) (!= ?iTempEDM ?*iEDM_ORTHODOX*) (!= ?iTempEDM ?*iEDM_WESTERN*)) then
-        (bind ?iTempEDM ?*iEDM_WESTERN*)
-    )
 
-	;Calculates the day of the week for a given date (passed in as a CJDN.
-	(bind ?iDay (dayFromDateINT ?dDate ?iTempEDM))
-	(bind ?iMonth (monthFromDateINT ?dDate ?iTempEDM))
-	(bind ?iYear (yearFromDateINT ?dDate ?iTempEDM))
-
-	(bind ?iA (floor (/ (- 14 ?iMonth) 12)))
-	(bind ?iY (- ?iYear ?iA))
-	(bind ?iM (- (+ ?iMonth (* 12 ?iA)) 2))
-
-	(if (= ?iTempEDM ?*iEDM_JULIAN*) then
-		;for the Julian calendar
-		(bind ?iD (mod (+ 5 ?iDay ?iY (floor (/ ?iY 4)) (floor (/ (* 31 ?iM) 12))) 7))
-	else
-		(if (= ?iTempEDM ?*iEDM_ORTHODOX*) then
-			(if (>= ?iYear 2800) then
-				;Check whether date is later than AD 2800. If not, just use the calculation for the Gregorian calendar.
-				;;Now convert Revised Julian date to a Gregorian date.
-				;(bind ?dTemp (pCJDNToGregorian (pMilankovicToCJDN ?iYear ?iMonth ?iDay)))
-				;(bind ?iDay (dayFromDateINT ?dTemp))
-				;(bind ?iMonth (monthFromDateINT ?dTemp))
-				;(bind ?iYear (yearFromDateINT ?dTemp))
-				;(bind ?iA (floor (/ (- 14 ?iMonth) 12)))
-				;(bind ?iY (- ?iYear ?iA))
-				;(bind ?iM (- (+ ?iMonth (* 12 ?iA)) 2))
-				;;for the Gregorian calendar and the Revised Julian until AD 2800.
-				(bind ?iD (mod (+ (- (+ ?iDay ?iY (floor (/ ?iY 4))) (floor (/ ?iY 100))) (floor (/ (+ ?iY 300) 900)) (floor (/ (+ ?iY 700) 900)) (floor (/ (* 31 ?iM) 12))) 7))
-			else
-				;for the Gregorian calendar and the Revised Julian until AD 2800.
-				(bind ?iD (mod (+ (- (+ ?iDay ?iY (floor (/ ?iY 4))) (floor (/ ?iY 100))) (floor (/ ?iY 400)) (floor (/ (* 31 ?iM) 12))) 7))
-			)
-		else
-			;for the Gregorian calendar and the Revised Julian until AD 2800.
-			(bind ?iD (mod (+ (- (+ ?iDay ?iY (floor (/ ?iY 4))) (floor (/ ?iY 100))) (floor (/ ?iY 400)) (floor (/ (* 31 ?iM) 12))) 7))
-		)
-	)
-
-	;Convert day to the sequence used in these calculations.
+    ; Calculate the Day of the Week
+    (bind ?iD (mod (+ ?dDate 1) 7))
+    
+	; Convert day to the sequence used in these calculations.
+    ; ISO 8601 has Monday = 1 and Sunday = 7.
 	(if (= ?iD 0) then
 		(bind ?iD 7)
 	)
